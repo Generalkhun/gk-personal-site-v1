@@ -1,5 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 const Body = () => {
     const [angle, setAngle] = useState(0);
@@ -28,14 +29,22 @@ const Body = () => {
     }, []);
 
     return (
-        <div className="relative w-64 h-64 rounded-full bg-gray-800 border-4 border-gray-600 flex items-center justify-center">
-            {/* Astronaut (just a triangle/arrow for now) */}
+        <div className="relative w-64 h-64 rounded-full bg-gray-800 border-4 border-gray-600 flex items-center justify-center overflow-hidden">
             <div
-                className="w-0 h-0 border-l-[20px] border-r-[20px] border-b-[40px] border-transparent border-b-white absolute"
+                className="w-0 h-0 border-l-[5px] border-r-[5px] border-b-[8px] border-transparent border-b-white absolute"
                 style={{
                     transform: `rotate(${angle + 90}deg) translateY(-70px)`,
                     transformOrigin: "50% 100%",
                 }}
+            >
+            </div>
+
+            <Image
+                src="/main-page/astronaut.png"
+                alt="Astronaut"
+                width={200}
+                height={200}
+
             />
         </div>
     );
