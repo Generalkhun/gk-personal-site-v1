@@ -1,14 +1,21 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 const Body = () => {
     const [angle, setAngle] = useState(0);
-    useEffect(() => {
-        angle
-        console.log("🚀 ~ Body ~ angle:", angle)
-
-    }, [angle])
+    useGSAP(() => {
+        // move astronaut up and down
+        gsap.to('.astronaut-container', {
+            y: -20,
+            duration: 2,
+            ease: "sine.inOut",
+            repeat: -1,
+            yoyo: true,
+        });
+    }, []);
 
     useEffect(() => {
         const handleMouseMove = (e) => {
@@ -38,14 +45,16 @@ const Body = () => {
                 }}
             >
             </div>
+            <div className='astronaut-container'>
+                <Image
+                    src="/main-page/astronaut.png"
+                    alt="Astronaut"
+                    width={200}
+                    height={200}
 
-            <Image
-                src="/main-page/astronaut.png"
-                alt="Astronaut"
-                width={200}
-                height={200}
+                />
+            </div>
 
-            />
         </div>
     );
 }
