@@ -21,6 +21,24 @@ const Body = () => {
             repeat: -1,
             yoyo: true,
         });
+        // make insideship-container to have a light reflection animation
+        gsap.fromTo('.insideship-container', {
+            background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%)',
+            backgroundPosition: '0% 50%',
+            backgroundSize: '200% 200%',
+            duration: 5,
+            ease: "sine.inOut",
+            repeat: -1,
+            yoyo: true,
+        }, {
+            background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 100%)',
+            backgroundPosition: '100% 50%',
+            backgroundSize: '200% 200%',
+            duration: 5,
+            ease: "sine.inOut",
+            repeat: -1,
+            yoyo: true,
+        });
     }, []);
 
     useEffect(() => {
@@ -42,7 +60,7 @@ const Body = () => {
     }, []);
 
     return (
-        <div className="relative w-58 h-58 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden">
+        <div className="relative w-40 h-40 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden insideship-container">
             <div
                 className="w-0 h-0 border-l-[5px] border-r-[5px] border-b-[8px] border-transparent border-b-white absolute"
                 style={{
@@ -53,16 +71,13 @@ const Body = () => {
             </div>
             <div className='astronaut-container'>
                 <Image
+                    className='opacity-60'
                     src="/main-page/astronaut.png"
                     alt="Astronaut"
-                    width={200}
-                    height={200}
-
+                    width={160}
+                    height={160}
                 />
             </div>
-
-
-
         </div>
     );
 }
