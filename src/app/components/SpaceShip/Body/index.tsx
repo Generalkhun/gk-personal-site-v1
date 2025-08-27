@@ -8,8 +8,14 @@ const Body = () => {
     const [angle, setAngle] = useState(0);
     useGSAP(() => {
         // move astronaut up and down
-        gsap.to('.astronaut-container', {
-            y: -20,
+        gsap.fromTo('.astronaut-container', {
+            y: -10,
+            duration: 2,
+            ease: "sine.inOut",
+            repeat: -1,
+            yoyo: true,
+        }, {
+            y: 10,
             duration: 2,
             ease: "sine.inOut",
             repeat: -1,
@@ -36,7 +42,7 @@ const Body = () => {
     }, []);
 
     return (
-        <div className="relative w-60 h-60 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden">
+        <div className="relative w-58 h-58 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden">
             <div
                 className="w-0 h-0 border-l-[5px] border-r-[5px] border-b-[8px] border-transparent border-b-white absolute"
                 style={{
