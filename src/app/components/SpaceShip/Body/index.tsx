@@ -36,7 +36,7 @@ const Body = () => {
     }, []);
 
     return (
-        <div className="relative w-64 h-64 rounded-full bg-gray-800 border-4 border-gray-600 flex items-center justify-center overflow-hidden">
+        <div className="relative w-60 h-60 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden">
             <div
                 className="w-0 h-0 border-l-[5px] border-r-[5px] border-b-[8px] border-transparent border-b-white absolute"
                 style={{
@@ -54,6 +54,8 @@ const Body = () => {
 
                 />
             </div>
+
+
 
         </div>
     );
