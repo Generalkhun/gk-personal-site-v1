@@ -1,13 +1,15 @@
+"use client"
 import { useGSAP } from "@gsap/react";
 import React from "react";
 import gsap from "gsap"
+import Image from "next/image";
 
 const Ring = () => {
     const size = 660; // Overall SVG size
     const thickness = 32; // Ring thickness
     const radius = (size - thickness) / 2; // Ring radius
     const numModules = 6; // Number of modules
-    const moduleRadius = 20; // Size of each module
+    const moduleSize = 120; // Image size
 
     const modules = [];
     for (let i = 0; i < numModules; i++) {
@@ -18,15 +20,24 @@ const Ring = () => {
         const y = size / 2 + radius * Math.sin(rad);
 
         modules.push(
-            <circle
+            <div
                 key={i}
-                cx={x}
-                cy={y}
-                r={moduleRadius}
-                fill="url(#moduleGradient)"
-                stroke="grey"
-                strokeWidth={2}
-            />
+                className="absolute"
+                style={{
+                    left: x - moduleSize / 2,
+                    top: y - moduleSize / 2,
+                    transform: `rotate(${angle + 90}deg)`, // <<< หันเข้าศูนย์กลาง
+                    transformOrigin: "50% 50%",
+                }}
+            >
+                <Image
+                    src="/main-page/cylinder-module.png"
+                    alt="cylinder-module"
+                    width={moduleSize}
+                    height={moduleSize}
+                    style={{ imageRendering: "pixelated" }}
+                />
+            </div>
         );
     }
 
@@ -45,42 +56,41 @@ const Ring = () => {
             className="relative flex items-center justify-center rotated-ring"
             style={{ width: size, height: size }}
         >
-            <svg
+            <div>
+                <svg  
                 width={size}
                 height={size}
                 className="absolute top-0 left-0"
                 style={{ pointerEvents: "none", imageRendering: "pixelated" }}
-                shapeRendering="crispEdges"
-            >
-                {/* Ring gradients to simulate pixel shading */}
-                <defs>
-                    <linearGradient id="ringGradient" x1="0" x2="0" y1="0" y2="1">
-                        <stop offset="0%" stopColor="#ffffff" />
-                        <stop offset="50%" stopColor="#d0d0d0" />
-                        <stop offset="100%" stopColor="#808080" />
-                    </linearGradient>
+                shapeRendering="crispEdges">
+                    <defs>
+                        {/* Pattern สำหรับวงแหวน */}
+                        <pattern id="ringTexture" patternUnits="userSpaceOnUse" width={400} height={400}>
+                            <image href="/main-page/ring-texture.png" width={400} height={400} />
+                        </pattern>
 
-                    {/* Module shading */}
-                    <radialGradient id="moduleGradient" cx="50%" cy="30%" r="70%">
-                        <stop offset="0%" stopColor="#ffffff" />
-                        <stop offset="60%" stopColor="#bbbbbb" />
-                        <stop offset="100%" stopColor="#444444" />
-                    </radialGradient>
-                </defs>
+                        {/* Module shading เดิม (ยังคงไว้) */}
+                        <radialGradient id="moduleGradient" cx="50%" cy="30%" r="70%">
+                            <stop offset="0%" stopColor="#ffffff" />
+                            <stop offset="60%" stopColor="#bbbbbb" />
+                            <stop offset="100%" stopColor="#444444" />
+                        </radialGradient>
+                    </defs>
 
-                {/* Main shaded ring */}
-                <circle
-                    cx={size / 2}
-                    cy={size / 2}
-                    r={radius}
-                    fill="transparent"
-                    stroke="url(#ringGradient)"
-                    strokeWidth={thickness}
-                />
 
+                    {/* Main shaded ring */}
+                    <circle
+                        cx={size / 2}
+                        cy={size / 2}
+                        r={radius}
+                        fill="transparent"
+                        stroke="url(#ringTexture)"
+                        strokeWidth={thickness}
+                    />
+                </svg>
                 {/* Attached modules */}
                 {modules}
-            </svg>
+            </div>
         </div>
     );
 };
